@@ -5,7 +5,6 @@ class gocd::params (
   $agent_service  = 'go-agent',
   $server_service = 'go-server',
 ) {
-
   case $::operatingsystem {
     'debian', 'ubuntu': {
       $repo_url        = 'http://dl.bintray.com/gocd/gocd-deb/'

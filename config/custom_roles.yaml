@@ -1,0 +1,15 @@
+---
+roles:
+
+  master:
+    provisioners:
+      - type: hosts
+      - type: shell
+        inline: | # bootstrap puppet settings
+          echo "step 1"
+  agent:
+    provisioners:
+      - type: hosts
+      - type: shell
+        inline: | # bootstrap puppet settings
+          echo "step 1"

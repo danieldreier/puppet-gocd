@@ -1,0 +1,26 @@
+---
+vms:
+
+  # NOTE: All `box:` declarations in this example point to vagrantcloud.com
+  # and require Vagrant 1.5.0 or newer to function.
+
+  - name: ci01.ops.puppetlabs.net
+    box: puppetlabs/debian-7.5-64-nocm
+    provision: :hosts
+    roles:
+      - plops-pe-node
+      - base
+
+  - name: debrepo-app1-prod.ops.puppetlabs.net
+    box: puppetlabs/debian-7.5-64-nocm
+    provision: :hosts
+    roles:
+      - plops-pe-node
+      - base
+
+  - name: mon-icinga1-stage.ops.puppetlabs.net
+    box: puppetlabs/debian-7.5-64-nocm
+    provision: :hosts
+    roles:
+      - plops-pe-node
+      - base

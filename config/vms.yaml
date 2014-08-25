@@ -1,0 +1,17 @@
+---
+vms:
+
+  - name: debian7.example.com
+    box: puppetlabs/debian-7.5-64-puppet
+    provision: :hosts
+    roles:
+      - base
+    synced_folders:
+      - {host_path: '.', guest_path: '/etc/puppet/modules/gocd'}
+
+
+  - name: centos65.example.com
+    box: puppetlabs/centos-6.5-64-puppet
+    provision: :hosts
+    roles:
+      - base

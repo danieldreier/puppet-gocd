@@ -1,58 +1,26 @@
-# Class: puppet::agent::service
+# Class:go::agent::service
 #
-# Manages enabling and disabling the Puppet agent service
+# Manages enabling and disabling the Go CD agent service
 #
-class puppet::agent::service (
-  $enable = true
+class gocd::agent::service (
+  $ensure = 'running'
 ) {
+  include gocd::params
 
-  include puppet::params
-
-  if $enable {
-    $ensure = running
-  } else {
-    $ensure = stopped
+  case $ensure {
+    'latest', true, 'running', 'present': { $service = 'running' }
+    'absent':  { $service = 'absent' }
+    'stopped': { $service = 'stopped' }
+    default: { $service = 'running' }
   }
 
-  # ----
-  # Puppet agent management
-  service { 'puppet_agent':
-    ensure     => $ensure,
-    name       => $puppet::params::agent_service,
-    enable     => $enable,
+  service { $gocd::params::agent_service:
+    ensure     => $service,
+    name       => $gocd::params::agent_service,
+    enable     => true,
     hasstatus  => true,
     hasrestart => true,
-  }
-
-  # ----
-  # Special things for special kernels
-  case $::kernel {
-    darwin: {
-      file { 'com.puppetlabs.puppet.plist':
-        owner   => 'root',
-        group   => '0',
-        mode    => '0640',
-        source  => 'puppet:///modules/puppet/com.puppetlabs.puppet.plist',
-        path    => '/Library/LaunchDaemons/com.puppetlabs.puppet.plist',
-      }
-    }
-    default: {
-
-      if $puppet::params::agent_service_conf {
-        $file_ensure = $puppet::params::agent_service_conf ? {
-          undef   => 'absent',
-          default => 'present',
-        }
-
-        file { 'puppet_agent_service_conf':
-          ensure  => $file_ensure,
-          mode    => '0644',
-          owner   => 'root',
-          group   => 'root',
-          content => template('puppet/agent_service.erb'),
-          path    => $puppet::params::agent_service_conf,
-        }
-      }
-    }
+    require    => [ Class['gocd::agent::config'],
+                    Class['gocd::install::agent'] ],
   }
 }

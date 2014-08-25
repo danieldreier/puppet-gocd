@@ -2,6 +2,8 @@
 class gocd::params (
   $agent_package  = 'go-agent',
   $server_package = 'go-server',
+  $agent_service  = 'go-agent',
+  $server_service = 'go-server',
 ) {
 
   case $::operatingsystem {

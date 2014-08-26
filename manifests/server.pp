@@ -38,7 +38,7 @@ class gocd::server (
   include gocd
 
   # Order of install
-  Class['gocd::install::server'] -> Class['gocd::server::service']
+  Class['gocd'] ->Class['gocd::install::server'] -> Class['gocd::server::service']
 
   class { 'gocd::install::server': }
   class { 'gocd::server::config': }

@@ -32,21 +32,18 @@
 #  }
 #
 class gocd::agent (
-  $ensure         = 'present',
-  $service        = 'running',
-  $go_server      = 'auto',
+  $ensure    = 'present',
+  $service   = 'running',
+  $go_server = 'auto',
 ) {
   include gocd
 
   include gocd::install::agent
 
-  if $go_server == 'auto' {
-    # use exported resources to find server
-  } else {
-    # use the server specified
-  }
 
-  include gocd::agent::config
+  class { 'gocd::agent::config':
+    go_server => $go_server,
+  }
 
   class { 'gocd::agent::service':
     ensure => $service,

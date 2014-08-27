@@ -10,6 +10,10 @@ script:
   - rake lint
   - rake syntax
   - kitchen test ${TESTCASE}
+after_script:
+  - kitchen destroy
+after_failure:
+  - cat .kitchen/logs/${TESTCASE}.log
 env:
   matrix:
   - TESTCASE="default-ubuntu-1204"

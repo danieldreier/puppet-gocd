@@ -5,10 +5,10 @@ before_install:
 install:
 - bundle install
 - puppet module build
-script: kitchen test ${DISTRO}
+script: kitchen test ${TESTCASE}
 env:
   matrix:
-  - DISTRO="ubuntu-12.04"
+  - TESTCASE="default-ubuntu-1204"
   global:
   - secure: DurKP19jVtoy/3GQAQR+/9OjktQj6rA+V+quNM0VEsUZ/dlNC/eUslfyO7s0jYxNUyYBS7tUOC5Za1PtmiVfrIWJQ4BGXsGNsFuRcgrIf0NTF2hUtWYIGXQZxZ2AGFz7GK7+KYkxs7M4cauiLUr/JojDbuybsuTGrfsv+7GWi/w=
   - secure: QT9Qqx2VjDRu3TL1P45qidH3GGv6EjvLYheSy3cKP/iMsC4a+iZmtixySGokBzrD33nqs4bKhOdFUY+yloXLYNZCxV/766YTwszNSYRx0dIf59PtBf9n0IRghQjIsTrFjQ42EzfR+AJLZfywGEy71yh2WqU9v2V1Fku5kptIchM=

@@ -2,6 +2,7 @@ language: ruby
 bundler_args: "--without development"
 before_install:
 - openssl enc -aes-128-cbc -a -d -salt -pass pass:"${PASSWORD}" -in travisci-west.pem.encrypted -out travisci-west.pem
+- chmod 600 travisci-west.pem
 install:
 - bundle install
 - puppet module build

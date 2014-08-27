@@ -4,3 +4,7 @@ spec/fixtures
 .rspec_system
 .vagrant
 log
+.kitchen
+.librarian
+.tmp
+travisci-west.pem

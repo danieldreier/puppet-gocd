@@ -14,13 +14,14 @@ class gocd::agent::service (
     default: { $service = 'running' }
   }
 
-  service { $gocd::params::agent_service:
+  service { 'go-agent':
     ensure     => $service,
-    name       => $gocd::params::agent_service,
+    name       => 'go-agent',
     enable     => true,
     hasstatus  => true,
     hasrestart => true,
     require    => [ Class['gocd::agent::config'],
-                    Class['gocd::install::agent'] ],
+                    Class['gocd::install::agent'],
+                    Package['go-agent'] ],
   }
 }

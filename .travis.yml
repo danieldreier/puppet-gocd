@@ -1,22 +1,14 @@
----
 language: ruby
-bundler_args: --without development
-before_install: rm Gemfile.lock || true
-rvm:
-  - 1.9.3
-  - 2.0.0
-script: bundle exec rake test
+bundler_args: "--without development"
+before_install:
+- openssl enc -aes-128-cbc -a -d -salt -pass pass:"${PASSWORD}" -in travisci-west.pem.encrypted -out travisci-west.pem
+- puppet module build
+script: kitchen test $DISTRO
 env:
-  - PUPPET_VERSION="~> 2.7.0"
-  - PUPPET_VERSION="~> 3.1.0"
-  - PUPPET_VERSION="~> 3.2.0"
-  - PUPPET_VERSION="~> 3.3.0"
-  - PUPPET_VERSION="~> 3.4.0"
-matrix:
-  exclude:
-  - rvm: 2.0.0
-    env: PUPPET_VERSION="~> 2.7.0"
-  - rvm: 2.0.0
-    env: PUPPET_VERSION="~> 3.1.0"
-  - rvm: 1.9.3
-    env: PUPPET_VERSION="~> 2.7.0"
+  matrix:
+  - DISTRO="ubuntu-12.04"
+  global:
+  - secure: DurKP19jVtoy/3GQAQR+/9OjktQj6rA+V+quNM0VEsUZ/dlNC/eUslfyO7s0jYxNUyYBS7tUOC5Za1PtmiVfrIWJQ4BGXsGNsFuRcgrIf0NTF2hUtWYIGXQZxZ2AGFz7GK7+KYkxs7M4cauiLUr/JojDbuybsuTGrfsv+7GWi/w=
+  - secure: QT9Qqx2VjDRu3TL1P45qidH3GGv6EjvLYheSy3cKP/iMsC4a+iZmtixySGokBzrD33nqs4bKhOdFUY+yloXLYNZCxV/766YTwszNSYRx0dIf59PtBf9n0IRghQjIsTrFjQ42EzfR+AJLZfywGEy71yh2WqU9v2V1Fku5kptIchM=
+  - secure: KMKPNcZnSpAmpTkve6Rk8QGZ59h+IOnFD2WbK3s0VZee+6WCyg3Tp/vyG3nco2jt0nbsK7UlXC4kUC7ahcPQ/nYhcotu5/VG/zAjZCBxVwMq73aRO5mrz8efbb36k8NK+jxUV6U3oybfMG5RaQBFxpLajnOZV0hIHWMzr0Tyhuw=
+  - secure: HUDvpcwMHaYQCut2E7RPYtP9sAxblcj8vEuWlHAmkVXf345W0TpAiBLPvvT/utXlZ22bb3ChCc4R0VSGv4Kvz90QdQwqql6Gqr1p2iXv1SHPl/lAj79HBiUXIuKP7AY/Q/P1J5sQw4Sn6Nflz/UsL4VNrZue0tfREcIrBfN9Ukw=

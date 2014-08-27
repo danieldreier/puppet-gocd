@@ -8,5 +8,4 @@ summary 'Install and manage Go Continuous Delivery server and agents'
 source 'https://github.com/danieldreier/puppet-gocd'
 project_page 'https://github.com/danieldreier/puppet-gocd'
 
-dependency 'puppetlabs/java'
 dependency 'puppetlabs/apt'

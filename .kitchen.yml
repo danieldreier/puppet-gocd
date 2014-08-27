@@ -1,0 +1,33 @@
+#<% require 'kitchen-sync' %>
+---
+driver:
+  name: ec2
+  aws_ssh_key_id: testkitchen-west2
+  ssh_key: travisci-west.pem
+  region: us-west-2
+  availability_zone: us-west-2c
+  require_chef_omnibus: true
+  ssh_timeout: 10
+  ssh_retries: 5
+  flavor_id: 'c3.large'
+  security_group_ids:
+    - 'testkitchen-security'
+    - 'default'
+
+provisioner:
+  name: shell
+  data_path: pkg
+  data: pkg
+
+platforms:
+  - name: ubuntu-12.04
+    driver:
+      image_id: ami-e6f36fd6
+      username: ubuntu
+  - name: centos-6.4
+    driver:
+      image_id: ami-b3bf2f83
+      username: root
+
+suites:
+  - name: default

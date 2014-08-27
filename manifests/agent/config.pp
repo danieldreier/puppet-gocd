@@ -3,9 +3,9 @@ class gocd::agent::config (
 ){
   # set localhost if this is also a go server
   # for an all-in-one installation (not recommended)
-  if defined( 'gocd::server' ) {
-    $go_server = '127.0.0.1'
-  }
+  #  if defined( 'gocd::server' ) {
+  #    go_server = '127.0.0.1'
+  #  }
 
   if $go_server == 'auto' {
     # use exported resources to find server

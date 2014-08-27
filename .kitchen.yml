@@ -16,7 +16,7 @@ driver:
 
 provisioner:
   name: shell
-  data_path: pkg
+#  data_path: pkg
   data: pkg
 
 platforms:

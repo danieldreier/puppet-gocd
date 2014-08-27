@@ -6,7 +6,10 @@ before_install:
 install:
 - bundle install
 - puppet module build
-script: kitchen test ${TESTCASE}
+script:
+  - rake lint
+  - rake syntax
+  - kitchen test ${TESTCASE}
 env:
   matrix:
   - TESTCASE="default-ubuntu-1204"

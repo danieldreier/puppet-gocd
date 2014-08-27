@@ -8,3 +8,4 @@ log
 .librarian
 .tmp
 travisci-west.pem
+Puppetfile.lock
